@@ -10,7 +10,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Client\BlazorContactWas.Client.csproj" />
+    <ProjectReference Include="..\Repository\BlazorContactWas.Repository.csproj" />
     <ProjectReference Include="..\Shared\BlazorContactWas.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 
