@@ -1,10 +1,11 @@
 # BlazorContatctWas
-Gestor de contactos utilizando blazor webassembly, dapper y Radzen.
+<h2>Gestor de contactos utilizando blazor webassembly, dapper y Radzen</h2>
 
-Lista de contactos
+<h3>Lista de contactos</h3>
 [![image.png](https://i.postimg.cc/NfbY6tgT/image.png)](https://postimg.cc/tY1LbLnC)
 
 <h3>Agregar</h3>
+
 [![image.png](https://i.postimg.cc/GpLyMdYC/image.png)](https://postimg.cc/WdyzzRXW)
 
 [![image.png](https://i.postimg.cc/fRhq52KN/image.png)](https://postimg.cc/PP2M5M93)
