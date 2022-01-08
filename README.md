@@ -13,7 +13,7 @@ Agregar
 
 [![image.png](https://i.postimg.cc/Nj4DDgF6/image.png)](https://postimg.cc/K11tvhnj)
 
-Agregar 
+Actualizar 
 
 [![image.png](https://i.postimg.cc/xCy1JFt1/image.png)](https://postimg.cc/phrH3Cww)
 
