@@ -1,0 +1,91 @@
+﻿<div class="card">
+    <div class="card-body">
+        <EditForm Model="contact" OnValidSubmit="Save">
+            <DataAnnotationsValidator/>
+            <div class=" row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">First Name</label>
+                    <InputText class="form-control" @bind-Value="contact.FirstName"></InputText>
+                    <ValidationMessage For="()=>contact.FirstName"/>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Last Name</label>
+                    <InputText class="form-control" @bind-Value="contact.LastName"></InputText>
+                    <ValidationMessage For="()=>contact.LastName"/>
+                </div>
+
+            </div>
+            <div class=" row">
+                <div class="col-md-6 mb-3">
+                    <label for="phone">Phone</label>
+                    <InputText class="form-control" @bind-Value="contact.Phone"></InputText>
+                    <ValidationMessage For="()=>contact.Phone"/>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Address</label>
+                    <InputText class="form-control" @bind-Value="contact.Address"></InputText>
+                    <ValidationMessage For="()=>contact.Address"/>
+                </div>
+
+            </div>
+            <div class="row justify-content-center">
+                <RadzenButton ButtonStyle="ButtonStyle.Success" Text="Save" Icon="save" ButtonType="ButtonType.Submit"></RadzenButton>
+
+            </div>
+        </EditForm>
+
+    </div>
+
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public int ContactId { get; set; }
+
+    Contact contact;
+    protected override async Task OnInitializedAsync()
+    {
+        if (ContactId > 0)
+
+        {
+            contact = new();
+            contact = await _contacServices.GetDetails(ContactId);
+
+        }
+        else
+        {
+            contact = new();
+        }
+
+    }
+
+    async Task Save()
+    {
+        if (ContactId <= 0)
+        {
+
+            await _contacServices.InsertContact(contact);
+
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Contact register successfully", Duration = 4000 });
+
+        }
+        else
+        {
+
+            await _contacServices.UpdateContact(contact);
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Contact update successfully", Duration = 4000 });
+        }
+        DialogService.Close();
+    }
+
+    void ShowNotification( NotificationMessage message)
+    {
+        NotificationService.Notify(message);
+    }
+
+}

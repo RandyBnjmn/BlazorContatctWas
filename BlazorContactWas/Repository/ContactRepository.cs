@@ -29,13 +29,10 @@ namespace BlazorContactWas.Repository
 
         public async Task<IEnumerable<Contact>> GetAll()
         {
-            var sql = @"SELECT Id,
-                               FirstName,
-                               LastName,
-                               Phone,
-                               Addrress
-                       FROM Contact";
-            return await _dbConnection.QueryAsync<Contact>(sql);
+            var sql = @"SELECT * FROM Contact";
+
+             return await _dbConnection.QueryAsync<Contact>(sql);
+         
         }
 
         public  async Task<Contact> GetDetails(int id)
@@ -44,7 +41,7 @@ namespace BlazorContactWas.Repository
                                FirstName,
                                LastName,
                                Phone,
-                               Addrress
+                               Address
                        FROM Contact 
                         WHERE Id = @Id";
             return await _dbConnection.QueryFirstOrDefaultAsync<Contact>(sql, new { Id = id });
@@ -54,7 +51,7 @@ namespace BlazorContactWas.Repository
         {
             try
             {
-                var sql = @"INSERT INTO Contact (FirstName, LastName, Phone, Address) VALUES(@FristName, @LastName, @Phone, @Address)";
+                var sql = "INSERT INTO Contact (FirstName, LastName, Phone, Address) VALUES(@FirstName, @LastName, @Phone, @Address)";
 
                 var result = await _dbConnection.ExecuteAsync(sql, new
                 {
@@ -66,10 +63,10 @@ namespace BlazorContactWas.Repository
 
                 return result > 0; 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
 
@@ -78,7 +75,7 @@ namespace BlazorContactWas.Repository
             try
             {
                 var sql = @"UPDATE Contact 
-                            SET FirstName = @FristName, 
+                            SET FirstName = @FirstName, 
                             LastName = @LastName,
                             Phone = @Phone,
                             Address =  @Address
@@ -95,10 +92,10 @@ namespace BlazorContactWas.Repository
 
                 return result > 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
     }

@@ -1,3 +1,62 @@
 ﻿@page "/"
 
-<h1>Hello, Contact!</h1>
+<h3 class="display-4 mt-3 mb-3">
+    Contacts
+</h3>
+
+<div class="container-fluid">
+
+    <div class=" justify-content-end mt-3 mb-3">
+        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="()=>OpenDialogForm(0)" Text="Add contact" Icon="person_add"></RadzenButton>
+
+    </div>
+
+
+
+
+
+    <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true"
+                    FilterMode="FilterMode.Advanced"
+                    PageSize="5"
+                    AllowPaging="true"
+                    AllowSorting="true"
+                    Data="@contacts"
+                    TItem="Contact"
+                    ColumnWidth="200px"
+                    DoesNotContainText="NO CONTACT DISPLAYED"
+                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+        <Columns>
+            <RadzenDataGridColumn TItem="Contact" Property="FirstName" Title="First Name" />
+            <RadzenDataGridColumn TItem="Contact" Property="LastName" Title="Last Name" />
+            <RadzenDataGridColumn TItem="Contact" Property="Phone" Title="Phone" />
+            <RadzenDataGridColumn TItem="Contact" Property="Address" Title="Addresss" />
+            <RadzenDataGridColumn TItem="Contact" Width="100px" TextAlign="TextAlign.Center" Filterable="false" Sortable="false" Title="Update">
+                <Template Context="data">
+                    <RadzenButton ButtonStyle="ButtonStyle.Warning" Icon="edit_mode" Click="()=>OpenDialogForm(data.Id)"></RadzenButton>
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+</div>
+
+
+
+@code{
+
+    IEnumerable<Contact> contacts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        contacts = await _contacServices.GetAll();
+    }
+
+    async Task OpenDialogForm(int contactId)
+    {
+        await DialogService.OpenAsync<DialogForm>("Contact",
+              new Dictionary<string, object>() { { "ContactId", contactId } },
+              new DialogOptions() { Width = "700px", ShowClose = true });
+
+        await OnInitializedAsync();
+    }
+}
+

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlazorContactWas.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/contact/")]
     [ApiController]
     public class ContactController : ControllerBase
     {
@@ -25,6 +25,7 @@ namespace BlazorContactWas.Server.Controllers
         public async Task<IEnumerable<Contact>> GetContacts()
         {
             return await _repository.GetAll();
+ 
         }
 
         [HttpGet("{id}")]
@@ -57,8 +58,8 @@ namespace BlazorContactWas.Server.Controllers
 
             return NoContent();
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Contact contact)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Contact contact)
         {
             if (contact == null)
             {

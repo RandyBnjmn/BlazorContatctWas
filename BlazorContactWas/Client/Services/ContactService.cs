@@ -22,12 +22,12 @@ namespace BlazorContactWas.Client.Services
 
         public async Task<IEnumerable<Contact>> GetAll()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Contact>>("api/contact/");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Contact>>("api/contact");
         }
 
         public async Task<Contact> GetDetails(int id)
         {
-            return await _httpClient.GetFromJsonAsync<Contact>("api/contact/");
+            return await _httpClient.GetFromJsonAsync<Contact>($"api/contact/{id}");
         }
 
         public async Task InsertContact(Contact contact)
@@ -37,7 +37,7 @@ namespace BlazorContactWas.Client.Services
 
         public async Task UpdateContact(Contact contact)
         {
-            await _httpClient.PutAsJsonAsync($"api/contact/{contact.Id}", contact);
+            await _httpClient.PutAsJsonAsync("api/contact/", contact);
         }
     }
 }
